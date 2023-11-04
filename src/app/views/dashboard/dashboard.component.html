@@ -6,17 +6,11 @@
       <c-card-header><b>Today Task</b></c-card-header>
       <c-card-body>
         <div class="example mb-3">
-          <c-nav variant="tabs">
-            <c-nav-item>
-              <a [active]="activeNavTask"  [routerLink]="[]" cNavLink (click)="activeNavTask = !activeNavTask">
+          <c-nav variant="tabs" >
+            <c-nav-item *ngFor="let task of tasks">
+              <a cNavLink [active]="task.isActive" [routerLink]="[]"  (click)="selectNav(task.name)" [ngClass]="task.isActive? 'nave-selected':'nave-no-selected'">
                 <svg cIcon class="me-2" name="cilList"></svg>
-                All
-              </a>
-            </c-nav-item>
-            <c-nav-item>
-              <a [active]="!activeNavTask"  [routerLink]="[]" cNavLink (click)="activeNavTask = !activeNavTask">
-                <svg cIcon class="me-2" name="cilNotes"></svg>
-                Notes
+                {{ task.name }}
               </a>
             </c-nav-item>
           </c-nav>

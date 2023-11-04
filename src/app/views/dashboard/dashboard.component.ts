@@ -81,19 +81,31 @@ const projects = [
   }
 ];
 
+const tasks = [
+  {
+    id: 1,
+    name: 'All',
+    isActive: true
+  },
+  {
+    id: 2,
+    name: 'Notes',
+    isActive: false
+  }
+]
+
 @Component({
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
-  activeNavTask = true;
+  tasks : any = [];
   notes: any= [];
   projects: any = [];
 
   constructor(private chartsData: DashboardChartsData) {
   }
-
 
   public mainChart: IChartProps = {};
   public chart: Array<IChartProps> = [];
@@ -105,6 +117,7 @@ export class DashboardComponent implements OnInit {
     this.initCharts();
     this.notes = notes;
     this.projects = projects;
+    this.tasks = tasks;
   }
 
   initCharts(): void {
@@ -120,6 +133,10 @@ export class DashboardComponent implements OnInit {
       default:
         return ''
     }
+  }
+
+  selectNav(taskName: string): void {
+    this.tasks.forEach((x: { isActive: boolean; name: string; }) =>  x.isActive = x.name == taskName);
   }
 
   setTrafficPeriod(value: string): void {
