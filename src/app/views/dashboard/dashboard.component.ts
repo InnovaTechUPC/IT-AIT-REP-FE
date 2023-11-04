@@ -1,40 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-
-import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
-
-interface IUser {
-  name: string;
-  state: string;
-  registered: string;
-  country: string;
-  usage: number;
-  period: string;
-  payment: string;
-  activity: string;
-  avatar: string;
-  status: string;
-  color: string;
-}
-
-const notes = [
-  {
-    id: 1,
-    description: 'Create a user flow of social application design',
-    checked: false
-  },
-  {
-    id: 2,
-    description: 'Landing page design for Fintech project of singapore',
-    checked: true
-  },
-  {
-    id: 3,
-    description: 'Interactive prototype for app screens of delta mine project',
-    checked: false
-  }
-];
-
 
 const projects = [
   {
@@ -83,14 +47,45 @@ const projects = [
 
 const tasks = [
   {
-    id: 1,
     name: 'All',
-    isActive: true
+    itemList: [
+      {
+        id: 1,
+        description: 'Others List 1',
+        checked: false
+      },
+      {
+        id: 2,
+        description: 'Other List 2',
+        checked: true
+      },
+      {
+        id: 3,
+        description: 'Other List 3',
+        checked: false
+      }
+    ]
+
   },
   {
-    id: 2,
     name: 'Notes',
-    isActive: false
+    itemList: [
+      {
+        id: 1,
+        description: 'Create a user flow of social application design',
+        checked: false
+      },
+      {
+        id: 2,
+        description: 'Landing page design for Fintech project of singapore',
+        checked: true
+      },
+      {
+        id: 3,
+        description: 'Interactive prototype for app screens of delta mine project',
+        checked: false
+      }
+    ]
   }
 ]
 
@@ -101,27 +96,12 @@ const tasks = [
 export class DashboardComponent implements OnInit {
 
   tasks : any = [];
-  notes: any= [];
   projects: any = [];
-
-  constructor(private chartsData: DashboardChartsData) {
-  }
-
-  public mainChart: IChartProps = {};
-  public chart: Array<IChartProps> = [];
-  public trafficRadioGroup = new UntypedFormGroup({
-    trafficRadio: new UntypedFormControl('Month')
-  });
+  activeTabsIndex = 0;
 
   ngOnInit(): void {
-    this.initCharts();
-    this.notes = notes;
     this.projects = projects;
     this.tasks = tasks;
-  }
-
-  initCharts(): void {
-    this.mainChart = this.chartsData.mainChart;
   }
 
   selectColor(status: string): string {
@@ -135,13 +115,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  selectNav(taskName: string): void {
-    this.tasks.forEach((x: { isActive: boolean; name: string; }) =>  x.isActive = x.name == taskName);
-  }
-
-  setTrafficPeriod(value: string): void {
-    this.trafficRadioGroup.setValue({ trafficRadio: value });
-    this.chartsData.initMainChart(value);
-    this.initCharts();
+  onTabChange($event: number): void {
+    this.activeTabsIndex = $event;
   }
 }

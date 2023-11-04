@@ -24,12 +24,12 @@ import { WidgetsModule } from '../widgets/widgets.module';
 
 @NgModule({
   imports: [
+    CommonModule,
     DashboardRoutingModule,
     CardModule,
     NavModule,
     IconModule,
     TabsModule,
-    CommonModule,
     GridModule,
     ProgressModule,
     ReactiveFormsModule,
