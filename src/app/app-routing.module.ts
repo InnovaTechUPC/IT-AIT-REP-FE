@@ -26,14 +26,39 @@ const routes: Routes = [
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
       },
       {
-        path: 'theme',
+        path: 'projects',
         loadChildren: () =>
-          import('./views/theme/theme.module').then((m) => m.ThemeModule)
+          import('./views/projects/projects.module').then((m) => m.ProjectsModule)
       },
       {
-        path: 'base',
+        path: 'messages',
         loadChildren: () =>
-          import('./views/base/base.module').then((m) => m.BaseModule)
+          import('./views/messages/messages.module').then((m) => m.MessagesModule)
+      },
+      {
+        path: 'statistics',
+        loadChildren: () =>
+          import('./views/statistics/statistics.module').then((m) => m.StatisticsModule)
+      },
+      {
+        path: 'notifications',
+        loadChildren: () =>
+          import('./views/notifications/notifications.module').then((m) => m.NotificationsModule)
+      },
+      {
+        path: 'ai',
+        loadChildren: () =>
+          import('./views/ai/ai.module').then((m) => m.AiModule)
+      },
+      {
+        path: 'plans',
+        loadChildren: () =>
+          import('./views/plans/plans.module').then((m) => m.PlansModule)
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./views/settings/settings.module').then((m) => m.SettingsModule)
       },
       {
         path: 'buttons',
@@ -69,7 +94,7 @@ const routes: Routes = [
         path: 'pages',
         loadChildren: () =>
           import('./views/pages/pages.module').then((m) => m.PagesModule)
-      },
+      }
     ]
   },
   {
@@ -100,7 +125,7 @@ const routes: Routes = [
       title: 'Register Page'
     }
   },
-  {path: '**', redirectTo: 'dashboard'}
+  { path: '**', redirectTo: 'dashboard' }
 ];
 
 @NgModule({

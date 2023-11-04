@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 
 // Import containers
 import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
+import { IconModule, IconSetService } from '@coreui/icons-angular';
 
 import {
   AvatarModule,
@@ -36,7 +37,6 @@ import {
   UtilitiesModule
 } from '@coreui/angular';
 
-import { IconModule, IconSetService } from '@coreui/icons-angular';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,

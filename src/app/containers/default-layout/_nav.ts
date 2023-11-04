@@ -8,43 +8,37 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Projects',
-    url: '/theme/projects',
+    url: '/projects',
     iconComponent: { name: 'cil-task' }
   },
   {
-    name: 'Message',
-    url: '/theme/message',
-    linkProps: { fragment: 'someAnchor' },
+    name: 'Messages',
+    url: '/messages',
     iconComponent: { name: 'cil-comment-square' }
   },
   {
     name: 'Statistics',
-    url: '/theme/statistics',
-    linkProps: { fragment: 'someAnchor' },
+    url: '/statistics',
     iconComponent: { name: 'cil-chart' }
   },
   {
-    name: 'Notification',
-    url: '/theme/notification',
-    linkProps: { fragment: 'someAnchor' },
+    name: 'Notifications',
+    url: '/notifications',
     iconComponent: { name: 'cil-bell' }
   },
   {
     name: 'AI - AssignIT',
-    url: '/theme/ai',
-    linkProps: { fragment: 'someAnchor' },
+    url: '/ai',
     iconComponent: { name: 'cil-user' }
   },
   {
     name: 'Plans',
-    url: '/theme/plans',
-    linkProps: { fragment: 'someAnchor' },
+    url: '/plans',
     iconComponent: { name: 'cil-basket' }
   },
   {
     name: 'Settings',
-    url: '/theme/settings',
-    linkProps: { fragment: 'someAnchor' },
+    url: '/settings',
     iconComponent: { name: 'cil-settings' }
   }
 ];
