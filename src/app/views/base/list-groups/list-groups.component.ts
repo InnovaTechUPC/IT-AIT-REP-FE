@@ -9,7 +9,7 @@ import { UntypedFormBuilder } from '@angular/forms';
 export class ListGroupsComponent {
 
   breakpoints = [true, 'sm', 'md', 'lg', 'xl', 'xxl'];
-  colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
+  colors = ['primary', 'secondary', 'assign-it', 'danger', 'warning', 'info', 'light', 'dark'];
 
   checkBoxes = this.formBuilder.group({
     one: false,

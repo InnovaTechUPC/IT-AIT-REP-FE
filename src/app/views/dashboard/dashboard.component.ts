@@ -17,94 +17,84 @@ interface IUser {
   color: string;
 }
 
+const notes = [
+  {
+    id: 1,
+    description: 'Create a user flow of social application design',
+    checked: false
+  },
+  {
+    id: 2,
+    description: 'Landing page design for Fintech project of singapore',
+    checked: true
+  },
+  {
+    id: 3,
+    description: 'Interactive prototype for app screens of delta mine project',
+    checked: false
+  }
+];
+
+
+const projects = [
+  {
+    id: 1,
+    name: 'Nelsa web developement',
+    dueDate: '2023-03-25',
+    status: 'Completed',
+    progress: 45
+  },
+  {
+    id: 2,
+    name: 'Datascale AI app ',
+    dueDate: '2023-10-01',
+    status: 'Delayed',
+    progress: 45
+  },
+  {
+    id: 3,
+    name: 'Media channel branding',
+    dueDate: '2023-05-22',
+    status: 'At risk',
+    progress: 45
+  },
+  {
+    id: 4,
+    name: 'Corlax iOS app develpoement',
+    dueDate: '2023-06-25',
+    status: 'On going',
+    progress: 45
+  },
+  {
+    id: 5,
+    name: 'Create a user flow of social application design',
+    dueDate: '2023-12-20',
+    status: 'Completed',
+    progress: 100
+  },
+  {
+    id: 6,
+    name: 'Website builder developement',
+    dueDate: '2024-04-15',
+    status: 'Completed',
+    progress: 45
+  }
+];
+
 @Component({
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+  activeNavTask = true;
+  notes: any= [];
+  projects: any = [];
+
   constructor(private chartsData: DashboardChartsData) {
   }
 
-  public users: IUser[] = [
-    {
-      name: 'Yiorgos Avraamu',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'Us',
-      usage: 50,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Mastercard',
-      activity: '10 sec ago',
-      avatar: './assets/img/avatars/1.jpg',
-      status: 'success',
-      color: 'success'
-    },
-    {
-      name: 'Avram Tarasios',
-      state: 'Recurring ',
-      registered: 'Jan 1, 2021',
-      country: 'Br',
-      usage: 10,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Visa',
-      activity: '5 minutes ago',
-      avatar: './assets/img/avatars/2.jpg',
-      status: 'danger',
-      color: 'info'
-    },
-    {
-      name: 'Quintin Ed',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'In',
-      usage: 74,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Stripe',
-      activity: '1 hour ago',
-      avatar: './assets/img/avatars/3.jpg',
-      status: 'warning',
-      color: 'warning'
-    },
-    {
-      name: 'Enéas Kwadwo',
-      state: 'Sleep',
-      registered: 'Jan 1, 2021',
-      country: 'Fr',
-      usage: 98,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Paypal',
-      activity: 'Last month',
-      avatar: './assets/img/avatars/4.jpg',
-      status: 'secondary',
-      color: 'danger'
-    },
-    {
-      name: 'Agapetus Tadeáš',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'Es',
-      usage: 22,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'ApplePay',
-      activity: 'Last week',
-      avatar: './assets/img/avatars/5.jpg',
-      status: 'success',
-      color: 'primary'
-    },
-    {
-      name: 'Friderik Dávid',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'Pl',
-      usage: 43,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Amex',
-      activity: 'Yesterday',
-      avatar: './assets/img/avatars/6.jpg',
-      status: 'info',
-      color: 'dark'
-    }
-  ];
+
   public mainChart: IChartProps = {};
   public chart: Array<IChartProps> = [];
   public trafficRadioGroup = new UntypedFormGroup({
@@ -113,10 +103,23 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.initCharts();
+    this.notes = notes;
+    this.projects = projects;
   }
 
   initCharts(): void {
     this.mainChart = this.chartsData.mainChart;
+  }
+
+  selectColor(status: string): string {
+    switch (status) {
+      case 'Completed': return 'success';
+      case 'On going':
+      case 'Delayed': return 'warning';
+      case 'At risk': return 'danger';
+      default:
+        return ''
+    }
   }
 
   setTrafficPeriod(value: string): void {
