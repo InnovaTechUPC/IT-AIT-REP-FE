@@ -25,15 +25,5 @@ export const navItems: INavData[] = [
     name: 'AI - AssignIT',
     url: '/ai',
     iconComponent: { name: 'cil-user' }
-  },
-  {
-    name: 'Plans',
-    url: '/plans',
-    iconComponent: { name: 'cil-basket' }
-  },
-  {
-    name: 'Settings',
-    url: '/settings',
-    iconComponent: { name: 'cil-settings' }
   }
 ];

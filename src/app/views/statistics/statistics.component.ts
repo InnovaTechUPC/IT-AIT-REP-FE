@@ -89,14 +89,14 @@ const statisticsList = [
   {
     name: 'By projects',
     icon: 'cilChartLine'
-  },
-  {
-    name: 'By Members',
-    icon: 'cilGroup'
   }
 ]
 
-
+// ,
+// // {
+// //   name: 'By Members',
+// //   icon: 'cilGroup'
+// }
 
 @Component({
   selector: 'app-statistics',

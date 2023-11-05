@@ -5,7 +5,7 @@ const cards = [
     title: 'Fintech Mobile App UI 1',
     subtitle: '2023-07-10',
     content: 'Fintech app development provides more freedom to banking and others financial institutions',
-    color: 'primary',
+    color: 'danger',
     percent: 15
   },
   {
