@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: AiComponent,
     data: {
-      title: `AI`
+      title: `Artificial Intelligence`
     }
   }
 ];
