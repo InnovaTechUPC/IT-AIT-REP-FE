@@ -2,8 +2,8 @@ FROM node:18 as builder
 WORKDIR /app
 
 COPY package*.json ./
-COPY angular.json .
-COPY tsconfig*.json .
+COPY angular.json ./
+COPY tsconfig*.json ./
 COPY src/ src/
 
 RUN npm install
