@@ -4,7 +4,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: assign-it-app
     container_name: assign-it-app
     ports:
       - "4200:80"
