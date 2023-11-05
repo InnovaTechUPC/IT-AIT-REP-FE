@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StatisticsComponent } from "./statistics.component";
 import { StatisticsRoutingModule } from "./statistics-routing.module";
 import {
+  AvatarComponent,
   CardBodyComponent,
   CardComponent,
   CardHeaderComponent,
@@ -13,11 +14,17 @@ import {
   NavComponent,
   NavItemComponent,
   NavLinkDirective,
+  ProgressBarComponent,
+  ProgressComponent,
   TabContentComponent,
   TabContentRefDirective,
-  TabPaneComponent
+  TabPaneComponent,
+  TemplateIdDirective,
+  WidgetStatCComponent,
+  WidgetStatEComponent
 } from "@coreui/angular";
 import {IconDirective} from "@coreui/icons-angular";
+import {ChartjsComponent} from "@coreui/angular-chartjs";
 
 
 @NgModule({
@@ -38,7 +45,14 @@ import {IconDirective} from "@coreui/icons-angular";
     NavLinkDirective,
     TabContentComponent,
     TabPaneComponent,
-    TabContentRefDirective
+    TabContentRefDirective,
+    AvatarComponent,
+    ProgressComponent,
+    ProgressBarComponent,
+    WidgetStatEComponent,
+    ChartjsComponent,
+    WidgetStatCComponent,
+    TemplateIdDirective
   ]
 })
 export class StatisticsModule { }

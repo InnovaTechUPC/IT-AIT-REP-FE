@@ -4,91 +4,99 @@ import { Component, OnInit } from '@angular/core';
 const projects = [
   {
     id: 1,
-    name: 'Nelsa web developement',
-    dueDate: '2023-03-25',
-    status: 'Completed',
-    progress: 45
+    name: 'Project',
+    progress: 45,
+    members: 30,
+    pendingTask: '0'
   },
   {
     id: 2,
-    name: 'Datascale AI app ',
-    dueDate: '2023-10-01',
-    status: 'Delayed',
-    progress: 45
+    name: 'Project',
+    progress: 66,
+    members: 12,
+    pendingTask: '0'
   },
   {
     id: 3,
-    name: 'Media channel branding',
-    dueDate: '2023-05-22',
-    status: 'At risk',
-    progress: 45
+    name: 'Project',
+    progress: 33,
+    members: 5,
+    pendingTask: '0'
   },
   {
     id: 4,
-    name: 'Corlax iOS app develpoement',
-    dueDate: '2023-06-25',
-    status: 'On going',
-    progress: 45
+    name: 'Project',
+    progress: 20,
+    members: 4,
+    pendingTask: '0'
   },
   {
     id: 5,
-    name: 'Create a user flow of social application design',
-    dueDate: '2023-12-20',
-    status: 'Completed',
-    progress: 100
+    name: 'Project',
+    progress: 22,
+    members: 2,
+    pendingTask: '0'
   },
   {
     id: 6,
-    name: 'Website builder developement',
-    dueDate: '2024-04-15',
-    status: 'Completed',
-    progress: 45
+    name: 'Project',
+    progress: 75,
+    members: 10,
+    pendingTask: '0'
   }
 ];
 
 const tasks = [
   {
-    name: 'All',
-    itemList: [
-      {
-        id: 1,
-        description: 'Others List 1',
-        checked: false
-      },
-      {
-        id: 2,
-        description: 'Other List 2',
-        checked: true
-      },
-      {
-        id: 3,
-        description: 'Other List 3',
-        checked: false
-      }
-    ]
-
+    id: 1,
+    idProject: 2,
+    name: 'Task',
+    progress: 43
   },
   {
-    name: 'Notes',
-    itemList: [
-      {
-        id: 1,
-        description: 'Create a user flow of social application design',
-        checked: false
-      },
-      {
-        id: 2,
-        description: 'Landing page design for Fintech project of singapore',
-        checked: true
-      },
-      {
-        id: 3,
-        description: 'Interactive prototype for app screens of delta mine project',
-        checked: false
-      }
-    ]
+    id: 2,
+    idProject: 3,
+    name: 'Task',
+    progress: 25
+  },
+  {
+    id: 3,
+    idProject: 1,
+    name: 'Task',
+    progress: 41
+  },
+  {
+    id: 4,
+    idProject: 2,
+    name: 'Task',
+    progress: 12
+  },
+  {
+    id: 5,
+    idProject: 6,
+    name: 'Task',
+    progress: 23
+  },
+  {
+    id: 6,
+    idProject: 5,
+    name: 'Task',
+    progress: 90
+  }
+];
+
+const statisticsList = [
+  {
+    name: 'By projects',
+    icon: 'cilChartLine'
+  },
+  {
+    name: 'By Members',
+    icon: 'cilGroup'
   }
 ]
+
+
 
 @Component({
   selector: 'app-statistics',
@@ -97,13 +105,24 @@ const tasks = [
 })
 export class StatisticsComponent  implements OnInit {
 
-  statisticsList : any = [];
+  statisticsList: any[] = [];
   projects: any = [];
+  tasks: any[] = [];
+
+
+  projectSelected: any = {}
   activeTabsIndex = 0;
 
   ngOnInit(): void {
     this.projects = projects;
-    this.statisticsList = tasks;
+    this.statisticsList = statisticsList;
+    this.tasks = tasks.filter(x => x.idProject == 1);
+    projects.filter(x => {
+      if(x.id == 1) {
+        this.projectSelected = x;
+      }
+    });
+    this.projectSelected.pendingTask = this.tasks.filter(x => x.value != 100).length.toString();
   }
 
   selectColor(status: string): string {
@@ -120,4 +139,15 @@ export class StatisticsComponent  implements OnInit {
   onTabChange($event: number): void {
     this.activeTabsIndex = $event;
   }
+
+  selectProject(id: number): void {
+    this.tasks = tasks.filter(x => x.idProject == id);
+    projects.filter(x => {
+     if(x.id == id) {
+       this.projectSelected = x;
+     }
+    });
+    this.projectSelected.pendingTask = this.tasks.filter(x => x.value != 100).length.toString();
+  }
+
 }
