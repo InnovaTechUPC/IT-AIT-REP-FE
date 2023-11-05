@@ -1,0 +1,40 @@
+<c-row class="mb-3" >
+  <c-col [md]="2">
+    <mat-form-field>
+      <mat-select [formControl]="notificationTypeControl">
+        <mat-option *ngFor="let type of notificationTypeList" [value]="type.code" (click)="changeNotificationList(type.code)">
+          {{ type.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </c-col>
+</c-row>
+
+<c-row >
+  <c-col>
+    <c-card class="mb-3" *ngFor="let notification of notifications">
+      <c-row class="g-0">
+        <c-col [md]="2">
+          <img [cCardImg]="" src="{{ './assets/img/avatars/' + notification.id + '.jpg' }}" alt="">
+        </c-col>
+        <c-card-body cCol [md]="10">
+          <h1 cCardTitle>{{ notification.name }}</h1>
+          <c-row>
+            <c-col [md]="11">
+              <p cCardText>{{ notification.content }}</p>
+              <p cCardText>
+                <c-badge [color]="'secondary'" shape="rounded-pill">{{ notification.date }}</c-badge>
+              </p>
+            </c-col>
+            <c-col [md]="1">
+              <mat-icon [fontIcon]="notification.isFavourite? 'star': 'star_border'"
+                        [color]="'primary'"
+                        (click)="changeFavouriteNotification(notification.id)">
+              </mat-icon>
+            </c-col>
+          </c-row>
+        </c-card-body>
+      </c-row>
+    </c-card>
+  </c-col>
+</c-row>

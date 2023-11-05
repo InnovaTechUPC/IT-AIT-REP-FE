@@ -1,0 +1,32 @@
+<c-container>
+  <c-row>
+    <c-col>
+      <div>Our Features</div>
+    </c-col>
+  </c-row>
+
+  <c-row [md]="2">
+    <c-col *ngFor="let feature of features">
+      <c-card class="mb-3">
+        <c-row class="g-0 align-items-center">
+          <c-col class="text-end" [md]="2">
+            <svg cIcon class="me-2" size="3xl" [name]="feature.icon"></svg>
+          </c-col>
+          <c-card-body cCol [md]="10" >
+            <h1 cCardTitle>{{ feature.title }}</h1>
+            <c-row>
+              <c-col [md]="11">
+                <p cCardText>{{ feature.content }}</p>
+                <p cCardText>
+                  <c-badge [color]="'secondary'" shape="rounded-pill">{{ feature.date }}</c-badge>
+                </p>
+                <button cButton [color]="'primary'">{{ feature.actions }}</button>
+              </c-col>
+            </c-row>
+          </c-card-body>
+        </c-row>
+      </c-card>
+    </c-col>
+  </c-row>
+</c-container>
+

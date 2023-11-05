@@ -1,0 +1,75 @@
+<div class="example mb-3">
+  <c-nav variant="tabs" >
+    <c-nav-item *ngFor="let statisticItem of statisticsList; index as i">
+      <a cNavLink [ngClass]="i == activeTabsIndex? 'nave-selected':'nave-no-selected'"
+         [cTabContent]="tabContent"
+         [tabPaneIdx]="i"
+         [routerLink]="[]">
+        <svg cIcon class="me-2" [name]="statisticItem.icon"></svg>
+        {{ statisticItem.name }}
+      </a>
+    </c-nav-item>
+  </c-nav>
+
+  <c-tab-content #tabContent="cTabContent"
+                 (activeTabPaneIdxChange)="onTabChange($event)"
+                 [activeTabPaneIdx]="activeTabsIndex">
+    <c-tab-pane class="p-3">
+      <c-row>
+        <c-col>
+          <c-card class="mb-3 project-card" *ngFor="let project of projects" (click)="selectProject(project.id)">
+            <c-card-body>
+              <c-row class="align-items-center">
+                <c-col [md]="2">
+                  <c-avatar size="xl" src="{{ './assets/img/avatars/' + project.id + '.jpg' }}"></c-avatar>
+                </c-col>
+                <c-col [md]="10">
+                  <h1>{{ project.name + ' ' + project.id }}</h1>
+                  <c-progress class="mb-3">
+                    <c-progress-bar color="success" [value]="project.progress">{{ project.progress }}%</c-progress-bar>
+                  </c-progress>
+                </c-col>
+              </c-row>
+            </c-card-body>
+          </c-card>
+        </c-col>
+        <c-col>
+          <c-row>
+            <c-col>
+              <c-widget-stat-e class="mb-4"
+                               [title]="'Members'"
+                               [value]="projectSelected.members">
+                <svg cIcon class="me-2" [name]="'cilGroup'"></svg>
+              </c-widget-stat-e>
+            </c-col>
+            <c-col>
+              <c-widget-stat-e class="mb-4"
+                               [title]="'Pending Tasks'"
+                               [value]="projectSelected.pendingTask">
+                <svg cIcon class="me-2" [name]="'cilTask'"></svg>
+              </c-widget-stat-e>
+            </c-col>
+          </c-row>
+          <c-card class="mb-3" *ngFor="let task of tasks" >
+            <c-card-body>
+              <c-row class="align-items-center">
+                <c-col [md]="2">
+                  <c-avatar size="xl" src="{{ './assets/img/avatars/' + task.id + '.jpg' }}"></c-avatar>
+                </c-col>
+                <c-col [md]="10">
+                  <h1>{{ task.name + ' ' + task.id }}</h1>
+                  <c-progress class="mb-3">
+                    <c-progress-bar color="warning" [value]="task.progress">{{ task.progress }}%</c-progress-bar>
+                  </c-progress>
+                </c-col>
+              </c-row>
+            </c-card-body>
+          </c-card>
+        </c-col>
+      </c-row>
+    </c-tab-pane>
+    <c-tab-pane class="p-3">
+
+    </c-tab-pane>
+  </c-tab-content>
+</div>
