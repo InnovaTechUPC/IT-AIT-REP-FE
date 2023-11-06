@@ -1,0 +1,14 @@
+version: '3'
+services:
+  assign-it-app:
+    image: rickcbs/assign-it-front:0.0.1
+    container_name: assign-it-app
+    ports:
+      - "4200:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - assign-it-network
+
+networks:
+  assign-it-network:
