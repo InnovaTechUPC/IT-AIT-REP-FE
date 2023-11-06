@@ -1,9 +1,7 @@
 version: '3'
 services:
   assign-it-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: rickcbs/assign-it-front:0.0.1
     container_name: assign-it-app
     ports:
       - "4200:80"
