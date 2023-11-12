@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StatisticsComponent } from "./statistics.component";
 import { StatisticsRoutingModule } from "./statistics-routing.module";
 import {
-  AvatarComponent,
+  AvatarComponent, BadgeComponent,
   CardBodyComponent,
   CardComponent,
   CardHeaderComponent,
@@ -13,22 +13,23 @@ import {
   GridModule,
   NavComponent,
   NavItemComponent,
-  NavLinkDirective,
+  NavLinkDirective, PageItemDirective, PageLinkDirective, PaginationComponent,
   ProgressBarComponent,
   ProgressComponent,
   TabContentComponent,
-  TabContentRefDirective,
+  TabContentRefDirective, TableColorDirective, TableDirective,
   TabPaneComponent,
   TemplateIdDirective,
   WidgetStatCComponent,
   WidgetStatEComponent
 } from "@coreui/angular";
-import {IconDirective} from "@coreui/icons-angular";
-import {ChartjsComponent} from "@coreui/angular-chartjs";
+import { IconDirective } from "@coreui/icons-angular";
+import { ChartjsComponent } from "@coreui/angular-chartjs";
+import { NumberWithZero } from "../../pipes/number-with-zero";
 
 
 @NgModule({
-  declarations: [ StatisticsComponent ],
+  declarations: [ StatisticsComponent, NumberWithZero ],
   imports: [
     CommonModule,
     StatisticsRoutingModule,
@@ -52,7 +53,13 @@ import {ChartjsComponent} from "@coreui/angular-chartjs";
     WidgetStatEComponent,
     ChartjsComponent,
     WidgetStatCComponent,
-    TemplateIdDirective
+    TemplateIdDirective,
+    BadgeComponent,
+    TableColorDirective,
+    TableDirective,
+    PaginationComponent,
+    PageItemDirective,
+    PageLinkDirective
   ]
 })
 export class StatisticsModule { }

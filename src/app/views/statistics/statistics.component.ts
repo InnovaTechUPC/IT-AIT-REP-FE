@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 const projects = [
   {
     id: 1,
@@ -89,14 +88,55 @@ const statisticsList = [
   {
     name: 'By projects',
     icon: 'cilChartLine'
+  },
+  {
+    name: 'By Members',
+    icon: 'cilGroup'
   }
 ]
 
-// ,
-// // {
-// //   name: 'By Members',
-// //   icon: 'cilGroup'
-// }
+const members = [
+  {
+    name: 'Jane Cooper',
+    position: 'Support',
+    phone: '(225) 555-0118',
+    email: 'jane@microsoft.com',
+    status: 'active',
+    statics: ''
+  },
+  {
+    name: 'Floyd Miles',
+    position: 'Support',
+    phone: '(205) 555-0100',
+    email: 'floyd@yahoo.com',
+    status: 'inactive',
+    statics: ''
+  },
+  {
+    name: 'Ronald Richards',
+    position: 'Support',
+    phone: '(302) 555-0107',
+    email: 'ronald@adobe.com',
+    status: 'inactive',
+    statics: ''
+  },
+  {
+    name: 'Marvin McKinney',
+    position: 'Support',
+    phone: '(252) 555-0126',
+    email: 'marvin@tesla.com',
+    status: 'active',
+    statics: ''
+  },
+  {
+    name: 'Jerome Bell',
+    position: 'Support',
+    phone: '(629) 555-0129',
+    email: 'jerome@google.com',
+    status: 'active',
+    statics: ''
+  }
+];
 
 @Component({
   selector: 'app-statistics',
@@ -108,7 +148,7 @@ export class StatisticsComponent  implements OnInit {
   statisticsList: any[] = [];
   projects: any = [];
   tasks: any[] = [];
-
+  members: any[] = [];
 
   projectSelected: any = {}
   activeTabsIndex = 0;
@@ -123,14 +163,19 @@ export class StatisticsComponent  implements OnInit {
       }
     });
     this.projectSelected.pendingTask = this.tasks.filter(x => x.value != 100).length.toString();
+    this.members = members;
   }
 
   selectColor(status: string): string {
     switch (status) {
-      case 'Completed': return 'success';
+      case 'active':
+      case 'Completed':
+        return 'success';
       case 'On going':
       case 'Delayed': return 'warning';
-      case 'At risk': return 'danger';
+      case 'inactive':
+      case 'At risk':
+        return 'danger';
       default:
         return ''
     }
@@ -149,5 +194,4 @@ export class StatisticsComponent  implements OnInit {
     });
     this.projectSelected.pendingTask = this.tasks.filter(x => x.value != 100).length.toString();
   }
-
 }
