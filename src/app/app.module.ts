@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -37,7 +37,6 @@ import {
   UtilitiesModule
 } from '@coreui/angular';
 
-
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
@@ -45,7 +44,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -81,6 +80,8 @@ const APP_CONTAINERS = [
     },
     IconSetService,
     Title
+  ],
+  exports: [
   ],
   bootstrap: [AppComponent]
 })
