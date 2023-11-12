@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ProjectBean } from "../../models/ProjectBean";
 
-const projects = [
+const projects: ProjectBean[] = [
   {
     id: 1,
     name: 'Nelsa web developement',
@@ -66,26 +70,6 @@ const tasks = [
       }
     ]
 
-  },
-  {
-    name: 'Notes',
-    itemList: [
-      {
-        id: 1,
-        description: 'Create a user flow of social application design',
-        checked: false
-      },
-      {
-        id: 2,
-        description: 'Landing page design for Fintech project of singapore',
-        checked: true
-      },
-      {
-        id: 3,
-        description: 'Interactive prototype for app screens of delta mine project',
-        checked: false
-      }
-    ]
   }
 ]
 
@@ -98,10 +82,25 @@ export class DashboardComponent implements OnInit {
   tasks : any = [];
   projects: any = [];
   activeTabsIndex = 0;
+  displayedColumns: string[] = ['id', 'name', 'dueDate', 'status', 'progress'];
+  dataSource: MatTableDataSource<ProjectBean>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+
+  constructor() {
+    this.dataSource = new MatTableDataSource(projects);
+  }
 
   ngOnInit(): void {
     this.projects = projects;
     this.tasks = tasks;
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   selectColor(status: string): string {
@@ -118,4 +117,14 @@ export class DashboardComponent implements OnInit {
   onTabChange($event: number): void {
     this.activeTabsIndex = $event;
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
 }

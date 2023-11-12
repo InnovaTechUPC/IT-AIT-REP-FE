@@ -19,8 +19,13 @@ import { ChartjsModule } from '@coreui/angular-chartjs';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-
 import { WidgetsModule } from '../widgets/widgets.module';
+
+import { MatFormFieldModule } from "@angular/material/form-field";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatInputModule} from "@angular/material/input";
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   imports: [
@@ -41,7 +46,12 @@ import { WidgetsModule } from '../widgets/widgets.module';
     AvatarModule,
     TableModule,
     WidgetsModule,
-    BadgeComponent
+    BadgeComponent,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule
   ],
   declarations: [DashboardComponent]
 })

@@ -46,26 +46,55 @@
     <c-card class="mb-4">
       <c-card-header><b>Project Summary</b></c-card-header>
       <c-card-body>
-        <table cTable hover="">
-          <thead cTableColor="dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Due date</th>
-              <th scope="col">Status</th>
-              <th scope="col">Progress</th>
+        <mat-form-field>
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+        </mat-form-field>
+
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+              <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
+              <td mat-cell *matCellDef="let row"> {{row.name}}% </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="dueDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+              <td mat-cell *matCellDef="let row"> {{row.dueDate}} </td>
+            </ng-container>
+
+            <!-- Fruit Column -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
+              <td mat-cell *matCellDef="let row"> <c-badge [color]="selectColor(row.status)" shape="rounded-pill">{{ row.status }}</c-badge> </td>
+            </ng-container>
+
+            <!-- Fruit Column -->
+            <ng-container matColumnDef="progress">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
+              <td mat-cell *matCellDef="let row"> {{row.progress}} % </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
             </tr>
-          </thead>
-          <tbody *ngFor="let project of projects">
-            <tr>
-              <th scope="row">{{ project.id }}</th>
-              <td>{{ project.name }}</td>
-              <td>{{ project.dueDate | date: 'MMM dd, y' }} </td>
-              <td><c-badge [color]="selectColor(project.status)" shape="rounded-pill">{{ project.status }}</c-badge></td>
-              <td>{{ project.progress }}%</td>
-            </tr>
-          </tbody>
-        </table>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+
       </c-card-body>
     </c-card>
   </c-col>
