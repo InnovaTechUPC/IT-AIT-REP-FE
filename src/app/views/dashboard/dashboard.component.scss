@@ -16,6 +16,30 @@
 
 table {
   width: 100%;
+  ::ng-deep {
+    thead {
+      background-color: #4f5d73;
+      div {
+        color: #fff;
+      }
+    }
+    tbody {
+      tr:hover {
+        background: whitesmoke;
+      }
+    }
+  }
+
+  .custom-th-column::ng-deep {
+    .mat-sort-header-container {
+      justify-content: center;
+      padding: 0 0 0 1rem;
+    }
+  }
+
+  .custom-td-column {
+    text-align: center;
+  }
 }
 
 .mat-mdc-form-field {
@@ -23,6 +47,3 @@ table {
   width: 100%;
 }
 
-td, th {
-  width: 25%;
-}
