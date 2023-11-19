@@ -8,7 +8,13 @@ const features = [
     actions: "Try blogs Content",
     icon: 'cilTask'
   },
- 
+  {
+    id: 2,
+    title: 'Possible risks or problems',
+    content: 'Analyze project data and predict possible risks or problems.',
+    actions: "Try blogs Content",
+    icon: 'cilWarning'
+  },
   {
     id: 3,
     title: 'Project Progress System',

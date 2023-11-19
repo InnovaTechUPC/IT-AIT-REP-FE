@@ -3,4 +3,10 @@
   height: 40px;
   width: 40px;
   cursor: pointer;
+  color: #2eb85c;
+  transition: all 1.3s;
+  &:hover {
+    scale: 1.5;
+  }
 }
+

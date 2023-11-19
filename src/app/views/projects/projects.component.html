@@ -1,18 +1,21 @@
-<c-row>
-  <c-col *ngFor="let card of cards; index as i" [lg]="4">
-    <c-card [color]="card.color"
-            [textColor]="card.color === 'warning' || card.color === 'light' ? '' :  'white'"
+<c-row *ngIf="projects.length !== 0">
+  <c-col *ngFor="let project of projects; index as i" [lg]="4">
+    <c-card [color]="'info'"
+            [textColor]="'white'"
             class="mb-3">
       <c-card-body class="bg-gradient">
-        <h2 cCardTitle>{{ card.title }}</h2>
+        <h2 cCardTitle>{{ project.name }}</h2>
         <h5 cCardSubtitle class="mb-2 text-medium-emphasis">
-          <svg cIcon class="me-2" name="cilCalendar"></svg>{{ card.subtitle }}
+          <svg cIcon class="me-2" name="cilCalendar"></svg>{{ project.date | date: 'MMM dd, y' }}
         </h5>
-        <p cCardText>{{ card.content }}</p>
+        <p cCardText>{{ project.description }}</p>
         <c-progress class="mb-3" >
-          <c-progress-bar color="dark" [value]="card.percent">{{ card.percent }}%</c-progress-bar>
+          <c-progress-bar color="warning" [value]="project.progress">{{ project.progress }}%</c-progress-bar>
         </c-progress>
       </c-card-body>
     </c-card>
   </c-col>
 </c-row>
+<div class="d-flex justify-content-center py-5" *ngIf="projects.length === 0">
+  <mat-spinner [diameter]="180" [strokeWidth]="10"></mat-spinner>
+</div>
