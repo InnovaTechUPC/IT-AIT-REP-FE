@@ -21,7 +21,7 @@
             <c-card-body>
               <c-row class="align-items-center">
                 <c-col [md]="2">
-                  <c-avatar size="xl" src="{{ './assets/img/projects/' + project.id + '.jpg' }}"></c-avatar>
+                  <c-avatar size="xl" src="{{ './assets/img/projects/' + project.id + '.jpeg' }}"></c-avatar>
                 </c-col>
                 <c-col [md]="10">
                   <h1>{{ project.name }}</h1>
@@ -50,21 +50,33 @@
               </c-widget-stat-e>
             </c-col>
           </c-row>
-          <c-card class="mb-3" *ngFor="let task of tasks" >
-            <c-card-body>
-              <c-row class="align-items-center">
-                <c-col [md]="2">
-                  <c-avatar size="xl" src="{{ './assets/img/tasks/task.png' }}"></c-avatar>
-                </c-col>
-                <c-col [md]="10">
-                  <h1>{{ task.description }}</h1>
-                  <c-progress class="mb-3">
-                    <c-progress-bar color="warning" [value]="getProgressBar(task)">{{ getProgressBar(task) }}%</c-progress-bar>
-                  </c-progress>
-                </c-col>
-              </c-row>
-            </c-card-body>
-          </c-card>
+          <ng-container *ngIf="tasks.length !== 0">
+            <c-card class="mb-3" *ngFor="let task of tasks" >
+              <c-card-body>
+                <c-row class="align-items-center">
+                  <c-col [md]="2">
+                    <c-avatar size="xl" src="{{ './assets/img/tasks/task.png' }}"></c-avatar>
+                  </c-col>
+                  <c-col [md]="10">
+                    <h1>{{ task.description }}</h1>
+                    <c-progress class="mb-3">
+                      <c-progress-bar color="warning" [value]="getProgressBar(task)">{{ getProgressBar(task) }}%</c-progress-bar>
+                    </c-progress>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </ng-container>
+          <ng-container *ngIf="tasks.length === 0">
+            <c-row class="pt-4">
+              <c-col class="d-flex justify-content-end">
+                <object data="./assets/svg/NotFoundData.svg" type="image/svg+xml" class="logo"> </object>
+              </c-col>
+              <c-col class="d-flex justify-content-start h1">
+                Not Found Tasks
+              </c-col>
+            </c-row>
+          </ng-container>
         </c-col>
       </c-row>
       <div class="d-flex justify-content-center py-3" *ngIf="projects.length === 0">
