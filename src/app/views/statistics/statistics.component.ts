@@ -33,7 +33,8 @@ export class StatisticsComponent  implements OnInit {
   users: UserBean[] = [];
   projectSelected: ProjectBean;
   activeTabsIndex = 0;
-  displayedColumns: string[] = ['name', 'roleName', 'phone', 'email', 'status', 'statics'];
+  //displayedColumns: string[] = ['name', 'roleName', 'phone', 'email', 'status', 'statics'];
+  displayedColumns: string[] = ['name', 'roleName', 'phone', 'email', 'status'];
   dataSource: MatTableDataSource<UserBean>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
