@@ -1,4 +1,4 @@
-export interface FeatureBean {
+export interface AiBean {
   id: number;
   title: string;
   content: string;

@@ -6,8 +6,8 @@ import { UserService } from "../../services/user.service";
 import { ProjectBean } from "../../models/ProjectBean";
 import { TaskBean } from "../../models/TaskBean";
 import { UserBean } from "../../models/UserBean";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 
 const statisticsList = [
   {
@@ -33,7 +33,8 @@ export class StatisticsComponent  implements OnInit {
   users: UserBean[] = [];
   projectSelected: ProjectBean;
   activeTabsIndex = 0;
-  displayedColumns: string[] = ['name', 'roleName', 'phone', 'email', 'status', 'statics'];
+  //displayedColumns: string[] = ['name', 'roleName', 'phone', 'email', 'status', 'statics'];
+  displayedColumns: string[] = ['name', 'roleName', 'phone', 'email', 'status'];
   dataSource: MatTableDataSource<UserBean>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

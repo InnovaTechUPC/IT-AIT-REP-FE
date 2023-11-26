@@ -1,11 +1,7 @@
-FROM node:16-alpine3.16 as builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
+# Tienes que tener buildeado el proyecto usar [ng build]
 FROM nginx:alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
-EXPOSE 80
+LABEL authors="ecortez"
+
+COPY dist usr/share/nginx/html
+
 CMD ["nginx", "-g", "daemon off;"]

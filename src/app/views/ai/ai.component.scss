@@ -10,15 +10,41 @@ c-col {
     color: #160647;
   }
 
-  c-card-body {
-    h1 {
-      font-weight: 500;
-      color: #160647;
-    }
-  }
-
   button {
     font-size: 12px;
   }
 }
 
+.svg-color {
+  fill: red;
+}
+
+c-card-body {
+  h1 {
+    font-weight: 500;
+    color: #160647;
+  }
+  height: 60vh;
+  overflow: auto;
+}
+
+
+.ai-style {
+  justify-content: start;
+  background-color: #555;
+  color: #fff;
+  min-width: 50%;
+  border-radius: 10px;
+  text-align: left;
+  padding: 10px;
+}
+
+.user-style {
+  justify-content: end;
+  background-color: #054640;
+  color: #fff;
+  min-width: 50%;
+  border-radius: 10px;
+  text-align: left;
+  padding: 10px;
+}

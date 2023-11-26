@@ -8,7 +8,7 @@ import {
   cilOptions,  cilPaperclip,  cilPaperPlane,  cilPen,  cilPencil,  cilPeople,  cilPrint,  cilPuzzle,  cilReportSlash,  cilSave,  cilSettings,  cilShare,
   cilShareAll,  cilShareBoxed,  cilSpeech,  cilSpeedometer,  cilSpreadsheet,  cilStar,  cilSun,  cilTags,  cilTask,  cilTrash,  cilUnderline,  cilUser,
   cilUserFemale,  cilUserFollow,  cilUserUnfollow,  cilFolder,  cilFolderOpen,  cilSearch,  cilChartLine,  cilWarning, cilGroup, cilScreenDesktop,
-  cilBarChart
+  cilBarChart, cilSend
 } from '@coreui/icons';
 
 export const iconSubset = {
@@ -109,7 +109,8 @@ export const iconSubset = {
   cilSearch,
   cilGroup,
   cilScreenDesktop,
-  cilBarChart
+  cilBarChart,
+  cilSend
 };
 
 export enum IconSubset {
@@ -210,5 +211,6 @@ export enum IconSubset {
   cilSearch = 'cilSearch',
   cilGroup = 'cilGroup',
   cilScreenDesktop = 'cilScreenDesktop',
-  cilBarChart = 'cilBarChart'
+  cilBarChart = 'cilBarChart',
+  cilSend = 'cilSend'
 }
