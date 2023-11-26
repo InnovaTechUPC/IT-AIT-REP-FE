@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <rect width="471.432" height="471.382" strokewidth="2" rx="65" ry="65" style="stroke-width: 29px; fill: rgba(0, 0, 0, 0); stroke: rgb(0, 0, 0);" y="13.976" x="14.592"/>
+  <rect width="44.093" height="29.033" strokewidth="2" rx="15" ry="15" style="stroke-width: 0px; stroke: rgb(0, 0, 0);" y="62.926" x="63.33"/>
+  <rect width="44.093" height="29.033" strokewidth="2" rx="15" ry="15" style="stroke-width: 0px; stroke: rgb(0, 0, 0);" y="62.926" x="133.898"/>
+  <rect width="44.093" height="29.033" strokewidth="2" rx="15" ry="15" style="stroke-width: 0px; stroke: rgb(0, 0, 0);" y="62.926" x="204.466"/>
+  <rect width="44.093" height="29.033" strokewidth="2" rx="15" ry="15" style="stroke-width: 0px; stroke: rgb(0, 0, 0); transform-origin: 147.561px 233.14px;" y="218.623" x="125.515" transform="matrix(0, 1, -1, 0, -7.457046508789, 8.838012695312)"/>
+  <rect width="44.093" height="29.033" strokewidth="2" rx="15" ry="15" style="stroke-width: 0px; stroke: rgb(0, 0, 0); transform-origin: 147.561px 233.14px;" y="218.623" x="125.515" transform="matrix(0, 1, -1, 0, 212.35969543457, 8.837097167969)"/>
+  <rect x="14.592" y="125.687" width="471.432" height="28.923" style="stroke: rgb(0, 0, 0);"/>
+  <path style="fill: rgba(3, 3, 3, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 31px; stroke: rgb(0, 0, 0);" d="M 223.894 303.506 C 223.894 303.506 241.20907328733645 290.332399361701 249.983 290.462 C 259.05406211742945 290.59598965810494 277.445 305.222 277.445 305.222" bx:d="M 223.894 303.506 R 249.983 290.462 R 277.445 305.222 1@2d62d916"/>
+</svg>

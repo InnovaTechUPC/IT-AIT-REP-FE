@@ -1,3 +1,56 @@
 .project-card {
   cursor: pointer;
 }
+
+c-widget-stat-e {
+  font-size: 1.2rem;
+  svg {
+    box-sizing: border-box;
+    color: #fff;
+    padding: 12px;
+    background-color: #2eb85c;
+    border-radius: 1.2rem;
+  }
+}
+
+table {
+  width: 100%;
+  ::ng-deep {
+    thead {
+      background-color: #4f5d73;
+      div {
+        color: #fff;
+      }
+    }
+    tbody {
+      tr:hover {
+        background: whitesmoke;
+      }
+    }
+  }
+
+  .custom-th-column::ng-deep {
+    .mat-sort-header-container {
+      justify-content: center;
+      padding: 0 0 0 1rem;
+    }
+  }
+
+  .custom-td-column {
+    text-align: center;
+  }
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+}
+
+c-col {
+  color: #000;
+}

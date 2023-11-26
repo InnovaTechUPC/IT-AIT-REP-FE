@@ -5,7 +5,7 @@
          [cTabContent]="tabContent"
          [tabPaneIdx]="i"
          [routerLink]="[]">
-        <svg cIcon class="me-2" [name]="statisticItem.icon"></svg>
+        <svg cIcon [name]="statisticItem.icon"></svg>
         {{ statisticItem.name }}
       </a>
     </c-nav-item>
@@ -15,16 +15,16 @@
                  (activeTabPaneIdxChange)="onTabChange($event)"
                  [activeTabPaneIdx]="activeTabsIndex">
     <c-tab-pane class="p-3">
-      <c-row>
+      <c-row *ngIf="projects.length !== 0">
         <c-col>
           <c-card class="mb-3 project-card" *ngFor="let project of projects" (click)="selectProject(project.id)">
             <c-card-body>
               <c-row class="align-items-center">
                 <c-col [md]="2">
-                  <c-avatar size="xl" src="{{ './assets/img/avatars/' + project.id + '.jpg' }}"></c-avatar>
+                  <c-avatar size="xl" src="{{ './assets/img/projects/' + project.id + '.jpeg' }}"></c-avatar>
                 </c-col>
                 <c-col [md]="10">
-                  <h1>{{ project.name + ' ' + project.id }}</h1>
+                  <h1>{{ project.name }}</h1>
                   <c-progress class="mb-3">
                     <c-progress-bar color="success" [value]="project.progress">{{ project.progress }}%</c-progress-bar>
                   </c-progress>
@@ -38,38 +38,145 @@
             <c-col>
               <c-widget-stat-e class="mb-4"
                                [title]="'Members'"
-                               [value]="projectSelected.members">
-                <svg cIcon class="me-2" [name]="'cilGroup'"></svg>
+                               [value]="projectSelected.totalMembers | NumberWithZero">
+                <svg cIcon size="3xl" [name]="'cilGroup'"></svg>
               </c-widget-stat-e>
             </c-col>
             <c-col>
               <c-widget-stat-e class="mb-4"
                                [title]="'Pending Tasks'"
-                               [value]="projectSelected.pendingTask">
-                <svg cIcon class="me-2" [name]="'cilTask'"></svg>
+                               [value]="projectSelected.pendingTask | NumberWithZero">
+                <svg cIcon size="3xl" [name]="'cilTask'"></svg>
               </c-widget-stat-e>
             </c-col>
           </c-row>
-          <c-card class="mb-3" *ngFor="let task of tasks" >
+          <ng-container *ngIf="tasks.length !== 0">
+            <c-card class="mb-3" *ngFor="let task of tasks" >
+              <c-card-body>
+                <c-row class="align-items-center">
+                  <c-col [md]="2">
+                    <c-avatar size="xl" src="{{ './assets/img/tasks/task.png' }}"></c-avatar>
+                  </c-col>
+                  <c-col [md]="10">
+                    <h1>{{ task.description }}</h1>
+                    <c-progress class="mb-3">
+                      <c-progress-bar color="warning" [value]="getProgressBar(task)">{{ getProgressBar(task) }}%</c-progress-bar>
+                    </c-progress>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </ng-container>
+          <ng-container *ngIf="tasks.length === 0">
+            <c-row class="pt-4">
+              <c-col class="d-flex justify-content-end">
+                <object data="./assets/svg/NotFoundData.svg" type="image/svg+xml" class="logo"> </object>
+              </c-col>
+              <c-col class="d-flex justify-content-start h1">
+                Not Found Tasks
+              </c-col>
+            </c-row>
+          </ng-container>
+        </c-col>
+      </c-row>
+      <div class="d-flex justify-content-center py-3" *ngIf="projects.length === 0">
+        <mat-spinner [diameter]="180" [strokeWidth]="10"></mat-spinner>
+      </div>
+    </c-tab-pane>
+    <c-tab-pane class="p-3">
+      <c-row>
+<!--        <c-col>
+          <c-widget-stat-e class="mb-4 fs-8"
+                           [title]="'Total Members'"
+                           [value]="projectSelected.totalMembers | NumberWithZero">
+            <svg cIcon size="3xl" [name]="'cilGroup'"></svg>
+          </c-widget-stat-e>
+        </c-col>-->
+        <c-col>
+          <c-widget-stat-e class="mb-4"
+                           [title]="'Total Members'"
+                           [value]="projectSelected.pendingTask | NumberWithZero">
+            <svg cIcon size="3xl" [name]="'cilUserFollow'"></svg>
+          </c-widget-stat-e>
+        </c-col>
+        <c-col>
+          <c-widget-stat-e class="mb-4"
+                           [title]="'Pending Tasks'"
+                           [value]="projectSelected.pendingTask | NumberWithZero">
+            <svg cIcon size="3xl" [name]="'cilScreenDesktop'"></svg>
+          </c-widget-stat-e>
+        </c-col>
+      </c-row>
+      <c-row>
+        <c-col xs>
+          <c-card class="mb-4">
+            <c-card-header><b>All Members</b></c-card-header>
             <c-card-body>
-              <c-row class="align-items-center">
-                <c-col [md]="2">
-                  <c-avatar size="xl" src="{{ './assets/img/avatars/' + task.id + '.jpg' }}"></c-avatar>
-                </c-col>
-                <c-col [md]="10">
-                  <h1>{{ task.name + ' ' + task.id }}</h1>
-                  <c-progress class="mb-3">
-                    <c-progress-bar color="warning" [value]="task.progress">{{ task.progress }}%</c-progress-bar>
-                  </c-progress>
-                </c-col>
-              </c-row>
+              <mat-form-field>
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" #input>
+              </mat-form-field>
+
+              <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
+                  <!-- ID Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%;"> Customer Name </th>
+                    <td mat-cell *matCellDef="let row" style="width: 15%;"> {{ row.name }} </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="roleName">
+                    <th class="custom-th-column" mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%"> Job Position </th>
+                    <td class="custom-td-column" mat-cell *matCellDef="let row" style="width: 20%"> {{ row.roleName }} </td>
+                  </ng-container>
+
+                  <!-- Date Column -->
+                  <ng-container matColumnDef="phone">
+                    <th class="custom-th-column" mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%"> Phone Number </th>
+                    <td class="custom-td-column" mat-cell *matCellDef="let row" style="width: 20%"> {{ row.phone }} </td>
+                  </ng-container>
+
+                  <!-- Progress Column -->
+                  <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%"> Email </th>
+                    <td mat-cell *matCellDef="let row" style="width: 20%"> {{ row.email }} </td>
+                  </ng-container>
+
+                  <!-- Status Column -->
+                  <ng-container matColumnDef="status">
+                    <th class="custom-th-column" mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%"> Status </th>
+                    <td class="custom-td-column" mat-cell *matCellDef="let row" style="width: 15%"> <c-badge [color]="selectColor(row.status)" shape="rounded-pill">{{ row.status }}</c-badge> </td>
+                  </ng-container>
+
+<!--
+                  &lt;!&ndash; Progress Column &ndash;&gt;
+                  <ng-container matColumnDef="statics">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%"> Statics </th>
+                    <td mat-cell *matCellDef="let row" style="width: 10%"> <button></button> </td>
+                  </ng-container>
+-->
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="5">No data matching the filter "{{ input.value }}"</td>
+                  </tr>
+                  <tr *ngIf="users.length === 0">
+                    <td class="mat-cell" colspan="5">
+                      <div class="d-flex justify-content-center py-3">
+                        <mat-spinner [diameter]="180" [strokeWidth]="10"></mat-spinner>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons aria-label="Select page of users"></mat-paginator>
+              </div>
             </c-card-body>
           </c-card>
         </c-col>
       </c-row>
-    </c-tab-pane>
-    <c-tab-pane class="p-3">
-
     </c-tab-pane>
   </c-tab-content>
 </div>

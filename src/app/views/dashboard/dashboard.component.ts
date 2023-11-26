@@ -1,50 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ProjectBean } from "../../models/ProjectBean";
+import { ProjectService } from "../../services/project.service";
+// import { TaskBean } from "../../models/TaskBean";
 
-const projects = [
-  {
-    id: 1,
-    name: 'Nelsa web developement',
-    dueDate: '2023-03-25',
-    status: 'Completed',
-    progress: 45
-  },
-  {
-    id: 2,
-    name: 'Datascale AI app ',
-    dueDate: '2023-10-01',
-    status: 'Delayed',
-    progress: 45
-  },
-  {
-    id: 3,
-    name: 'Media channel branding',
-    dueDate: '2023-05-22',
-    status: 'At risk',
-    progress: 45
-  },
-  {
-    id: 4,
-    name: 'Corlax iOS app develpoement',
-    dueDate: '2023-06-25',
-    status: 'On going',
-    progress: 45
-  },
-  {
-    id: 5,
-    name: 'Create a user flow of social application design',
-    dueDate: '2023-12-20',
-    status: 'Completed',
-    progress: 100
-  },
-  {
-    id: 6,
-    name: 'Website builder developement',
-    dueDate: '2024-04-15',
-    status: 'Completed',
-    progress: 45
-  }
-];
-
+/*
 const tasks = [
   {
     name: 'All',
@@ -65,29 +27,9 @@ const tasks = [
         checked: false
       }
     ]
-
-  },
-  {
-    name: 'Notes',
-    itemList: [
-      {
-        id: 1,
-        description: 'Create a user flow of social application design',
-        checked: false
-      },
-      {
-        id: 2,
-        description: 'Landing page design for Fintech project of singapore',
-        checked: true
-      },
-      {
-        id: 3,
-        description: 'Interactive prototype for app screens of delta mine project',
-        checked: false
-      }
-    ]
   }
 ]
+*/
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -95,13 +37,39 @@ const tasks = [
 })
 export class DashboardComponent implements OnInit {
 
-  tasks : any = [];
-  projects: any = [];
-  activeTabsIndex = 0;
+  // tasks : TaskBean[] = [];
+  projects: ProjectBean[] = [];
+  displayedColumns: string[] = ['id', 'name', 'date', 'status', 'progress'];
+  dataSource: MatTableDataSource<ProjectBean>;
+  // activeTabsIndex = 0;
+  isLoading = true;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(
+    private projectService: ProjectService
+  ) {
+      this.dataSource = new MatTableDataSource<ProjectBean>([]);
+  }
 
   ngOnInit(): void {
-    this.projects = projects;
-    this.tasks = tasks;
+    this.loadTable();
+    // this.tasks = tasks;
+  }
+
+  loadTable(): void {
+    this.projectService.getAllProject().subscribe(response=> {
+        this.projects = response;
+        this.dataSource = new MatTableDataSource(this.projects);
+        this.isLoading = !(this.dataSource.data.length == 0);
+        this.updateSortAndPagination();
+    });
+  }
+
+  updateSortAndPagination(): void {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
   }
 
   selectColor(status: string): string {
@@ -115,7 +83,17 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  onTabChange($event: number): void {
+/*  onTabChange($event: number): void {
     this.activeTabsIndex = $event;
+  }*/
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
+
 }

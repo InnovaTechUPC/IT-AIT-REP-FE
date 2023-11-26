@@ -1,102 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-
-
-const projects = [
-  {
-    id: 1,
-    name: 'Project',
-    progress: 45,
-    members: 30,
-    pendingTask: '0'
-  },
-  {
-    id: 2,
-    name: 'Project',
-    progress: 66,
-    members: 12,
-    pendingTask: '0'
-  },
-  {
-    id: 3,
-    name: 'Project',
-    progress: 33,
-    members: 5,
-    pendingTask: '0'
-  },
-  {
-    id: 4,
-    name: 'Project',
-    progress: 20,
-    members: 4,
-    pendingTask: '0'
-  },
-  {
-    id: 5,
-    name: 'Project',
-    progress: 22,
-    members: 2,
-    pendingTask: '0'
-  },
-  {
-    id: 6,
-    name: 'Project',
-    progress: 75,
-    members: 10,
-    pendingTask: '0'
-  }
-];
-
-const tasks = [
-  {
-    id: 1,
-    idProject: 2,
-    name: 'Task',
-    progress: 43
-  },
-  {
-    id: 2,
-    idProject: 3,
-    name: 'Task',
-    progress: 25
-  },
-  {
-    id: 3,
-    idProject: 1,
-    name: 'Task',
-    progress: 41
-  },
-  {
-    id: 4,
-    idProject: 2,
-    name: 'Task',
-    progress: 12
-  },
-  {
-    id: 5,
-    idProject: 6,
-    name: 'Task',
-    progress: 23
-  },
-  {
-    id: 6,
-    idProject: 5,
-    name: 'Task',
-    progress: 90
-  }
-];
+import {Component, OnInit, ViewChild} from '@angular/core';
+import { MatTableDataSource } from "@angular/material/table";
+import { TaskService } from "../../services/task.service";
+import { ProjectService } from "../../services/project.service";
+import { UserService } from "../../services/user.service";
+import { ProjectBean } from "../../models/ProjectBean";
+import { TaskBean } from "../../models/TaskBean";
+import { UserBean } from "../../models/UserBean";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 
 const statisticsList = [
   {
     name: 'By projects',
     icon: 'cilChartLine'
+  },
+  {
+    name: 'By Members',
+    icon: 'cilGroup'
   }
 ]
-
-// ,
-// // {
-// //   name: 'By Members',
-// //   icon: 'cilGroup'
-// }
 
 @Component({
   selector: 'app-statistics',
@@ -106,48 +28,104 @@ const statisticsList = [
 export class StatisticsComponent  implements OnInit {
 
   statisticsList: any[] = [];
-  projects: any = [];
-  tasks: any[] = [];
-
-
-  projectSelected: any = {}
+  projects: ProjectBean[] = [];
+  tasks: TaskBean[] = [];
+  users: UserBean[] = [];
+  projectSelected: ProjectBean;
   activeTabsIndex = 0;
+  //displayedColumns: string[] = ['name', 'roleName', 'phone', 'email', 'status', 'statics'];
+  displayedColumns: string[] = ['name', 'roleName', 'phone', 'email', 'status'];
+  dataSource: MatTableDataSource<UserBean>;
 
-  ngOnInit(): void {
-    this.projects = projects;
-    this.statisticsList = statisticsList;
-    this.tasks = tasks.filter(x => x.idProject == 1);
-    projects.filter(x => {
-      if(x.id == 1) {
-        this.projectSelected = x;
-      }
-    });
-    this.projectSelected.pendingTask = this.tasks.filter(x => x.value != 100).length.toString();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  constructor(
+      private projectService: ProjectService,
+      private taskService: TaskService,
+      private userService: UserService
+  ) {
+    this.dataSource = new MatTableDataSource<UserBean>([]);
+    this.projectSelected = {
+      id: 0,
+      name: '',
+      description: '',
+      date: '',
+      status: '',
+      progress: 0,
+      pendingTask: 0,
+      totalMembers: 0
+    };
   }
 
-  selectColor(status: string): string {
-    switch (status) {
-      case 'Completed': return 'success';
-      case 'On going':
-      case 'Delayed': return 'warning';
-      case 'At risk': return 'danger';
-      default:
-        return ''
-    }
+  ngOnInit(): void {
+    this.loadTaskData();
+    this.statisticsList = statisticsList;
+  }
+
+  loadTaskData(): void {
+    this.projectService.getAllProject().subscribe(pResponse=> {
+      this.projects = pResponse;
+      if(this.projects) {
+        this.taskService.getTasksByIdProject(this.projects.at(1)!.id).subscribe(tResponse => {
+          this.loadProjectAndTaskData(pResponse, tResponse!);
+        });
+      }
+    });
+
+    this.userService.getAllUsers().subscribe(uResponse => {
+      this.users = uResponse;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.updateSortAndPagination();
+    });
+  }
+
+  updateSortAndPagination(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  selectProject(id: number): void {
+    this.taskService.getTasksByIdProject(id).subscribe(tResponse => {
+      this.loadProjectAndTaskData(this.projects, tResponse, id);
+    });
+  }
+
+  loadProjectAndTaskData(projects: ProjectBean[], tasks: TaskBean[], id: number = 1): void {
+    this.tasks = tasks;
+    this.projectSelected = projects.find(x => x.id == id)!;
+    this.projectSelected.pendingTask = this.tasks.filter(x => !x.completed).length;
   }
 
   onTabChange($event: number): void {
     this.activeTabsIndex = $event;
   }
 
-  selectProject(id: number): void {
-    this.tasks = tasks.filter(x => x.idProject == id);
-    projects.filter(x => {
-     if(x.id == id) {
-       this.projectSelected = x;
-     }
-    });
-    this.projectSelected.pendingTask = this.tasks.filter(x => x.value != 100).length.toString();
+  selectColor(status: string): string {
+    switch (status) {
+      case 'Active':
+      case 'Completed':
+        return 'success';
+      case 'On going':
+      case 'Delayed': return 'warning';
+      case 'Inactive':
+      case 'At risk':
+        return 'danger';
+      default:
+        return ''
+    }
+  }
+
+  getProgressBar(task: TaskBean): string {
+    return ((task.hoursProgress/task.hoursTotal)*100).toFixed(2);
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
 }
