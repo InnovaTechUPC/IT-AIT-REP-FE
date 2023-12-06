@@ -13,6 +13,7 @@ import {
 import {MatIconModule} from "@angular/material/icon";
 import {IconDirective} from "@coreui/icons-angular";
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [ AiComponent ],
@@ -32,7 +33,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     InputGroupComponent,
     FormControlDirective,
     ReactiveFormsModule,
-    CardFooterComponent
+    CardFooterComponent,
+    MatAutocompleteModule
   ]
 })
 export class AiModule { }

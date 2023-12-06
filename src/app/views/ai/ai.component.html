@@ -9,6 +9,11 @@
         <div>How can I help you today?</div>
       </div>
     </c-card-body>
+    <mat-autocomplete #auto="matAutocomplete">
+      @for (option of options; track option) {
+      <mat-option [value]="option">{{option}}</mat-option>
+      }
+    </mat-autocomplete>
     <c-card-body *ngIf="msjList.length !== 0">
       <div *ngFor="let msj of msjList" class="d-flex" [ngClass]="msj.useType == 'AI'? 'justify-content-start':'justify-content-end'">
         <p [ngClass]="msj.useType == 'AI'? 'ai-style':'user-style'">
