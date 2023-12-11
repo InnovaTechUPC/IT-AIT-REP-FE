@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        node 'node-18'
+    }
+
     parameters {
         string(defaultValue: 'Y', description: 'Reinstall npm', name: 'clear_cache')
     }
