@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         PROJECT_VERSION = sh(script: 'node -pe "require(\'./package.json\').version"', returnStdout: true).trim()
-        DOCKER_IMAGE_NAME = 'rickcbs/asit-web-service:${PROJECT_VERSION}'
+        DOCKER_IMAGE_NAME = "rickcbs/asit-web-service:${PROJECT_VERSION}"
         DOCKER_CREDENTIALS = 'rkz-docker-hub'
     }
 
