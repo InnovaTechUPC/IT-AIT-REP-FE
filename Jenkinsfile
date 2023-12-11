@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-      string(defaultValue: 'Y', description: 'Reinstall npm', name: 'clear_cache')
+        string(defaultValue: 'Y', description: 'Reinstall npm', name: 'clear_cache')
     }
 
     environment {
@@ -36,8 +36,10 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS ) {
-                  app.push()
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS ) {
+                      app.push()
+                    }
                 }
             }
         }
