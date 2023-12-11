@@ -6,7 +6,7 @@ pipeline {
     }
 
     parameters {
-        string(defaultValue: 'Y', description: 'Reinstall npm', name: 'clear_cache')
+        string(defaultValue: 'N', description: 'Reinstall npm', name: 'clear_cache')
     }
 
     environment {
