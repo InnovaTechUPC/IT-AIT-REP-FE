@@ -25,6 +25,12 @@ pipeline {
             }
         }
 
+        stage('Debug') {
+            steps {
+                echo "DOCKER_IMAGE_NAME: ${DOCKER_IMAGE_NAME}"
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 sh 'npm run build'
